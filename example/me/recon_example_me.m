@@ -9,7 +9,7 @@
 %
 % Reconstructed images are saved in recon-complete/subject-site-scanner-date-session/
 
-rownum = 12;  % row number in sessions.txt (list of scan sessions)
+rownum = 13;  % row number in sessions.txt (list of scan sessions)
 
 auto = false;  % pause after each step before continuing
 
@@ -32,6 +32,37 @@ E = getexaminfo('../sessions.txt', rownum)
 % where to put intermediate files
 tmpdir = ['./tmp' num2str(rownum) '/'];
 system(sprintf('mkdir -p %s', tmpdir));
+
+% automated write scans.txt
+d = [E.subject '-' E.site '-' E.scanner '-' E.date '-' E.session '/'];
+scandir = ['../sessions/' d 'pulseq/'];
+if ~exist(scandir,"dir")
+    mkdir(scandir);
+end
+
+
+% data file
+data_root='/mnt/storage/yonglihe/transfer/20251216/';
+cal_folder = 'cal';
+slgcal_folder = 'slgcal';
+grappacal_folder = 'grappacal';
+rest_folder = 'mb4';
+
+% writes scans.txt
+if ~exist([scandir 'scans.txt'],'file')
+    system(['touch ' scandir 'scans.txt']);
+end
+
+
+if isempty(strtrim(fileread([scandir 'scans.txt'])))
+    fid = fopen([scandir 'scans.txt'],'w');
+    fprintf(fid,'%s\n',data_root);
+    fprintf(fid,'cal %s\n',cal_folder);
+    fprintf(fid,'2d %s\n',slgcal_folder);
+    fprintf(fid,'grappacal %s\n',grappacal_folder);
+    fprintf(fid,'rest %s\n',rest_folder);
+    fclose(fid);
+end
 
 set_experimental_parameters;
 

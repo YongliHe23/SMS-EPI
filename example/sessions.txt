@@ -10,5 +10,6 @@ sub00004    umich     uhp         20250717   1         GE         -1.5          
 sub00001    umich     mr750       20251201   1         GE         -1.5            ./readout.mod
 sub00001    umich     uhp         20251207   1         GE         -0.5            ./kxoe80.mat
 sub00001    umich     mr750       20251210   1         GE         -1.5            ./kxoe80.mat
+sub00001    umich     mr750       20251216   1         GE         -1.5            ./kxoe80.mat
 
 
